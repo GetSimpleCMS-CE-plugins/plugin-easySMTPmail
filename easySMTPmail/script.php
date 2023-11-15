@@ -54,8 +54,8 @@ if (isset($_POST['send-easySMTPmail'])) {
 
         // Send the email
         $mail->send();
-        echo $fileJS['success'];
+        echo '<div class="easySMTPsuccess">'.$fileJS['success'].'</div>';
     } catch (Exception $e) {
-        echo $fileJS['error'];
+        echo '<div class="easySMTPerror">'.$fileJS['error'].'</div>';
     };
 };

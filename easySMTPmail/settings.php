@@ -132,4 +132,5 @@ if (isset($_POST['saveESMTPM'])) {
     };
 
     file_put_contents($file, json_encode($settings));
+    echo ("<meta http-equiv='refresh' content='0'>");
 }; ?>

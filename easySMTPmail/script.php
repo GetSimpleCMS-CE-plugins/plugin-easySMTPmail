@@ -47,6 +47,8 @@ if (isset($_POST['send-easySMTPmail'])) {
         $mail->setFrom($fileJS['setFrom']); // Change this to your email and name
         $mail->addAddress($fileJS['addAddress']); // Change this to the recipient's email and name
 
+        $mail->addReplyTo($email, $name);
+
         // Content
         $mail->isHTML(false);
         $mail->Subject = $fileJS['subject'];

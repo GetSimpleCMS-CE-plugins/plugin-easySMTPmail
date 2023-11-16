@@ -3,6 +3,8 @@
     $fileJS = json_decode(file_get_contents(GSDATAOTHERPATH . 'easySMTPmail/settings.json'), true);
 }; ?>
 
+<link rel="stylesheet" href="<?php global $SITEURL;
+                                echo $SITEURL; ?>plugins/easySMTPmail/css/style.css">
 
 <form method="post" class="easySMTPform">
     <label for="name">
@@ -55,5 +57,15 @@
                                                             } else {
                                                                 echo 'Send Message';
                                                             }; ?> ">
+
+    <?php if (isset($_POST['info'])) {
+        echo $_POST['info'];
+    }; ?>
+    
+
 </form>
+
+
+
+
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

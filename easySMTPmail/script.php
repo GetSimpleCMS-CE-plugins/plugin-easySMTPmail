@@ -19,45 +19,48 @@ if (isset($_POST['send-easySMTPmail'])) {
         $recaptchaData = json_decode(file_get_contents($recaptchaUrl));
 
         if (!$recaptchaData->success) {
-            die("reCAPTCHA error");
+            $_POST['info'] = '<div class="easySMTPerror">reCAPTCHA error</div>';
         }
     } else {
-        die("reCAPTCHA error");
+        $_POST['info'] = '<div class="easySMTPerror">reCAPTCHA error</div>';
     }
 
-    // Get form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $message = $_POST['message'];
 
-    // Create a PHPMailer object
-    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-    try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = $fileJS['host']; // Change this to your SMTP server
-        $mail->SMTPAuth = (bool)$fileJS['SMTPAuth'];
-        $mail->Username = $fileJS['Username']; // Change this to your SMTP username
-        $mail->Password = $fileJS['Password']; // Change this to your SMTP password
-        $mail->SMTPSecure = $fileJS['SMTPSecure'];
-        $mail->Port = intval($fileJS['Port']);
+    if (!isset($_POST['info'])) {
+        // Get form data
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $message = $_POST['message'];
 
-        // Recipients
-        $mail->setFrom($fileJS['setFrom']); // Change this to your email and name
-        $mail->addAddress($fileJS['addAddress']); // Change this to the recipient's email and name
+        // Create a PHPMailer object
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = $fileJS['host']; // Change this to your SMTP server
+            $mail->SMTPAuth = (bool)$fileJS['SMTPAuth'];
+            $mail->Username = $fileJS['Username']; // Change this to your SMTP username
+            $mail->Password = $fileJS['Password']; // Change this to your SMTP password
+            $mail->SMTPSecure = $fileJS['SMTPSecure'];
+            $mail->Port = intval($fileJS['Port']);
 
-        $mail->addReplyTo($email, $name);
+            // Recipients
+            $mail->setFrom($fileJS['setFrom']); // Change this to your email and name
+            $mail->addAddress($fileJS['addAddress']); // Change this to the recipient's email and name
 
-        // Content
-        $mail->isHTML(false);
-        $mail->Subject = $fileJS['subject'];
-        $mail->Body = "Name: $name\nEmail: $email\nPhone: $phone\n\n$message";
+            $mail->addReplyTo($email, $name);
 
-        // Send the email
-        $mail->send();
-        echo '<div class="easySMTPsuccess">'.$fileJS['success'].'</div>';
-    } catch (Exception $e) {
-        echo '<div class="easySMTPerror">'.$fileJS['error'].'</div>';
+            // Content
+            $mail->isHTML(false);
+            $mail->Subject = $fileJS['subject'];
+            $mail->Body = "Name: $name\nEmail: $email\nPhone: $phone\n\n$message";
+
+            // Send the email
+            $mail->send();
+            $_POST['info'] = '<div class="easySMTPsuccess">' . $fileJS['success'] . '</div>';
+        } catch (Exception $e) {
+            $_POST['info'] = '<div class="easySMTPerror">' . $fileJS['error'] . '</div>';
+        };
     };
 };

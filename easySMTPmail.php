@@ -7,7 +7,7 @@ $thisfile = basename(__FILE__, ".php");
 register_plugin(
     $thisfile, //Plugin id
     'easySMTPmail',     //Plugin name
-    '1.0',         //Plugin version
+    '1.1',         //Plugin version
     'multicolor',  //Plugin author
     'http://bit.ly/donate-multicolor-plugins', //author website
     'easy to use contact form with Captcha Google and smtp', //Plugin description

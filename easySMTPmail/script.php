@@ -31,13 +31,17 @@ if (isset($_POST['send-easySMTPmail'])) {
         $name = $_POST['name'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
-        $message = $_POST['message'];
+        $message = htmlspecialchars($_POST['message'], ENT_QUOTES, 'UTF-8');
+
 
         // Create a PHPMailer object
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
         try {
             // Server settings
             $mail->isSMTP();
+            $mail->CharSet = 'UTF-8';
+            $mail->IsHTML(true);
+            $mail->ContentType = 'text/html; charset=UTF-8';
             $mail->Host = $fileJS['host']; // Change this to your SMTP server
             $mail->SMTPAuth = (bool)$fileJS['SMTPAuth'];
             $mail->Username = $fileJS['Username']; // Change this to your SMTP username

@@ -15,33 +15,36 @@
         padding: 10px;
         color: #fff;
     }
+	code {
+		border: solid 1px #ddd;
+		background: #fafafa;
+		padding: 5px;
+		display: inline-block;
+		margin: 10px 0;
+		color: green;
+	}
 </style>
 
 <?php if (file_exists(GSDATAOTHERPATH . 'easySMTPmail/settings.json')) {
-
     $fileJS = json_decode(file_get_contents(GSDATAOTHERPATH . 'easySMTPmail/settings.json'), true);
 }; ?>
 
-
 <form action="" class="easySMTPmail" method="post">
-    <h3>SMTP - settings</h3>
+    <h3>SMTP - Settings</h3>
 
-    <p style="width:100%;padding:10px;border:solid 1px #ddd;"> just put <b> easySMTPform() </b> function to yours template or paste shortcode in ckeditor <b> [% easySMTPmail %] </b> where you want use.</p>
+    <p style="width:100%;padding:10px;border:solid 1px #ddd;">Just place <code> &lt;?php easySMTPform(); ?&gt; </code> function in your template or paste <code style="color:blue;"> [% easySMTPmail %] </code> shortcode in ckeditor  where you want use.</p>
 
-    <label for="">choose sending method: (save after each change to see new fields)</label>
+    <label for="">Choose sending method: (save after each change to see new fields)</label>
     <select name="smtpormail" class="smtpormail">
         <option value="smtp">SMTP</option>
         <option value="mailto">MailTo</option>
     </select>
-
 
     <?php if (isset($fileJS)) {
         echo '<script>document.querySelector(".smtpormail").value ="' . $fileJS['smtpormail'] . '"</script>';
     }; ?>
 
     <?php if ($fileJS['smtpormail'] == 'smtp') : ?>
-
-
 
         <label for="">SMTP server</label>
         <input type="text" name="host" <?php if (isset($fileJS)) {
@@ -55,7 +58,6 @@
         </select>
 
         <?php if (isset($fileJS) && $fileJS['SMTPAuth'] !== '') {
-
             echo '<script>document.querySelector(".SMTPAUTH").value ="' . $fileJS['SMTPAuth'] . '"</script>';
         }; ?>
 
@@ -74,27 +76,24 @@
                                                                     echo 'value="' . $fileJS['SMTPSecure'] . '"';
                                                                 }; ?>>
 
-
         <label for="">Port</label>
         <input type="text" name="Port" placeholder="465" <?php if (isset($fileJS)) {
                                                                 echo 'value="' . $fileJS['Port'] . '"';
                                                             }; ?>>
 
-
     <?php endif; ?>
 
-
-    <label for="">subject</label>
+    <label for="">Subject</label>
     <input type="text" name="subject" <?php if (isset($fileJS)) {
                                             echo 'value="' . $fileJS['subject'] . '"';
                                         }; ?> required>
 
-    <label for="">set from</label>
+    <label for="">Set From</label>
     <input type="text" name="setFrom" <?php if (isset($fileJS)) {
                                             echo 'value="' . $fileJS['setFrom'] . '"';
                                         }; ?> required>
 
-    <label for="">set recipient</label>
+    <label for="">Set Recipient</label>
     <input type="text" name="addAddress" <?php if (isset($fileJS)) {
                                                 echo 'value="' . $fileJS['addAddress'] . '"';
                                             }; ?> required>
@@ -109,14 +108,12 @@
                                             echo 'value="' . $fileJS['siteKey'] . '"';
                                         }; ?> required>
 
-
-
-    <label for="">Success email info</label>
+    <label for="">Success Email Message</label>
     <input type="text" name="success" <?php if (isset($fileJS)) {
                                             echo 'value="' . $fileJS['success'] . '"';
                                         }; ?> required>
 
-    <label for="">Error email info</label>
+    <label for="">Error Email Message</label>
     <input type="text" name="error" <?php if (isset($fileJS)) {
                                         echo 'value="' . $fileJS['error'] . '"';
                                     }; ?> required>
@@ -139,20 +136,19 @@
                                             }; ?> placeholder="Message" required>
     <input type="text" name="lang-privacy" <?php if (isset($fileJS)) {
                                                 echo 'value="' . $fileJS['lang-privacy'] . '"';
-                                            }; ?> placeholder="privacy policy text checkbox" required>
+                                            }; ?> placeholder="Privacy Policy Checkbox Text" required>
     <input type="text" name="lang-submit" <?php if (isset($fileJS)) {
                                                 echo 'value="' . $fileJS['lang-submit'] . '"';
-                                            }; ?> placeholder="send button text" required>
+                                            }; ?> placeholder="Send Button Text" required>
 
     <hr>
-    <button type="submit" name="saveESMTPM">Save settings</button>
+    <button type="submit" name="saveESMTPM">Save Settings</button>
 
 </form>
 
 <?php
 
 if (isset($_POST['saveESMTPM'])) {
-
 
     $settings = [];
 
@@ -176,7 +172,6 @@ if (isset($_POST['saveESMTPM'])) {
     $settings['lang-message'] = $_POST['lang-message'];
     $settings['lang-privacy'] = $_POST['lang-privacy'];
     $settings['lang-submit'] = $_POST['lang-submit'];
-
 
     $file = GSDATAOTHERPATH . 'easySMTPmail/settings.json';
 

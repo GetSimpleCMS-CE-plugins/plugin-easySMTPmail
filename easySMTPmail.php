@@ -10,7 +10,7 @@ register_plugin(
     '3.0',         //Plugin version
     'multicolor',  //Plugin author
     'http://bit.ly/donate-multicolor-plugins', //author website
-    'easy to use contact form with Captcha Google and smtp', //Plugin description
+    'Easy to use contact form with Google Captcha and SMTP', //Plugin description
     'pages', //page type - on which admin tab to display
     'easySMTPsettings'  //main function (administration)
 );
@@ -23,10 +23,6 @@ add_action('pages-sidebar', 'createSideMenu', array($thisfile, 'easySMTPmail'));
 
 add_action('theme-header', 'shortcodeEasySMTPmail');
 
-
-
-
-
 # functions
 function easySMTPsettings()
 {
@@ -34,9 +30,10 @@ function easySMTPsettings()
 
     echo "
     <style>
-    .kofi-button{text-decoration:none !important;}
+		.kofi-button{text-decoration:none !important;}
     </style>
-    <div style='text-decoration:none !important;margin:20px 0;'><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy me coffe on Ko-fi', '#29abe0', 'I3I2RHQZS');kofiwidget2.draw();</script>
+    <div style='text-decoration:none !important;margin:20px 0;'>
+		<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy me coffe on Ko-fi', '#29abe0', 'I3I2RHQZS');kofiwidget2.draw();</script>
     </div>";
 }
 
@@ -81,7 +78,6 @@ function showFormEasyMail()
         $form .= 'Phone:';
     };
 
-
     $form .= '</label>
     <input type="tel" name="phone">
     <label for="message">';
@@ -124,11 +120,8 @@ function showFormEasyMail()
             $form .= $_POST['info'];
         };
 
-
         $form .= '</form>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>';
-
-
 
         return $form;
     }
@@ -139,8 +132,6 @@ function easySMTPform()
 {
     echo showFormEasyMail();
 }
-
-
 
 function easySMTPscript()
 {
